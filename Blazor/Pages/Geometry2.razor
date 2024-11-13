@@ -1,4 +1,4 @@
-@page "/Geometria"
+@page "/Geometry2"
 
 <PageTitle>Circumference and Area</PageTitle>
 <h1>Circumference and Area</h1>
@@ -11,6 +11,7 @@
               <option value="square">Square</option>
               <option value="circle">Circle</option>
               <option value="rectangle">Rectangle</option>
+              <option value="elipse">Elipse</option>
             </select>
         </td>
     </tr>
@@ -20,7 +21,7 @@
             <input style="text-align:right" @bind="x"/>
         </td>
     </tr>
-    @if (shape == "rectangle")
+    @if (shape == "rectangle" || shape == "elipse")
     {
         <tr>
             <td>Second argument:</td>
@@ -63,26 +64,29 @@
     private void CircumferenceArea()
     {
         System.Console.WriteLine("Shape: " + shape + ". x: " + x + ".");
-        if (shape == "circle")
+        switch(shape)
         {
-            circumference = 2 * pi * x;
-            area = pi * x * x;
-        }
-        else if (shape == "square")
-        {
-            circumference = 4 * x;
-            area = x * x;
-        }
-        else if (shape == "rectangle")
-        {
-            circumference = 2 * (x + y);
-            area = x * y;
-        }
-        else
-        {
-            // we can not calculate area or circumference for this shape
-            circumference = -1;
-            area = -1;
+            case "circle":
+                circumference = 2 * pi * x;
+                area = pi * x * x;
+                break;
+            case "square":
+                circumference = 4 * x;
+                area = x * x;
+                break;
+            case "rectangle":
+                circumference = 2 * (x + y);
+                area = x * y;
+                break;
+            case "elipse":
+                circumference = Math.Sqrt((x*x)+(y*y)) * pi;
+                area = x * y * pi;
+                break;
+            default:
+                // we can not calculate area or circumference for this shape
+                circumference = -1;
+                area = -1;
+                break;
         }
         System.Console.WriteLine("Area: " + area + ". Circumference: " + circumference + ".");
         System.Console.WriteLine();
